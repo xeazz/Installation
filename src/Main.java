@@ -1,53 +1,35 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        List<File> dirList = Arrays.asList(new File("/home/dmitry/Games/src"),
+                new File("/home/dmitry/Games/src/main"),
+                new File("/home/dmitry/Games/src/test"),
+                new File("/home/dmitry/Games/res"),
+                new File("/home/dmitry/Games/res/drawables"),
+                new File("/home/dmitry/Games/res/vectors"),
+                new File("/home/dmitry/Games/res/icons"),
+                new File("/home/dmitry/Games/savegames"),
+                new File("/home/dmitry/Games/temp"));
+        List<File> fileList = Arrays.asList(new File("/home/dmitry/Games/src/main/Main.java"),
+                new File("/home/dmitry/Games/src/main/Utils.java"),
+                new File("/home/dmitry/Games/temp/text.txt"));
 
-        File srs = new File("/home/dmitry/Games/src");
-        File srsMain = new File("/home/dmitry/Games/src/main");
-        File srsMainMain = new File("/home/dmitry/Games/src/main/Main.java");
-        File srsMainUtils = new File("/home/dmitry/Games/src/main/Utils.java");
-
-        File srsTest = new File("/home/dmitry/Games/src/test");
-
-        File res = new File("/home/dmitry/Games/res");
-        File resDrawables = new File("/home/dmitry/Games/res/drawables");
-        File resVectors = new File("/home/dmitry/Games/res/vectors");
-        File resIcons = new File("/home/dmitry/Games/res/icons");
-
-        File savegames = new File("/home/dmitry/Games/savegames");
-        File temp = new File("/home/dmitry/Games/temp");
-        File tempText = new File("/home/dmitry/Games/temp/text.txt");
 
         StringBuilder sb = new StringBuilder();
-        sb
-                .append(temp.getName() +" "+ createDir(temp))
-                .append('\n')
-                .append(tempText.getName() +" "+ createFile(tempText))
-                .append('\n')
-                .append(srs.getName() +" "+createDir(srs))
-                .append('\n')
-                .append(srsMain.getName() +" "+createDir(srsMain))
-                .append('\n')
-                .append(srsTest.getName() +" "+createDir(srsTest))
-                .append('\n')
-                .append(srsMainMain.getName() +" "+createFile(srsMainMain))
-                .append('\n')
-                .append(srsMainUtils.getName() +" "+createFile(srsMainUtils))
-                .append('\n')
-                .append(res.getName() +" "+createDir(res))
-                .append('\n')
-                .append(resDrawables.getName() +" "+createDir(resDrawables))
-                .append('\n')
-                .append(resVectors.getName() +" "+createDir(resVectors))
-                .append('\n')
-                .append(resIcons.getName() +" "+createDir(resIcons))
-                .append('\n')
-                .append(savegames.getName() +" "+createDir(savegames));
+        for (File x : dirList) {
+            sb.append(createDir(x));
+            sb.append('\n');
+        }
+        for (File y : fileList) {
+            sb.append(createFile(y));
+            sb.append('\n');
+        }
         String text = sb.toString();
-        //System.out.println(text);
         Writter(text);
 
     }
@@ -69,7 +51,8 @@ public class Main {
         }
         return false;
     }
-    public static void Writter (String text) {
+
+    public static void Writter(String text) {
         try (FileWriter writer = new FileWriter("/home/dmitry/Games/temp/text.txt", true)) {
             writer.write(text);
             writer.flush();
