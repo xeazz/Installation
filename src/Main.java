@@ -19,7 +19,7 @@ public class Main {
         List<File> fileList = Arrays.asList(new File("/home/dmitry/Games/src/main/Main.java"),
                 new File("/home/dmitry/Games/src/main/Utils.java"),
                 new File("/home/dmitry/Games/temp/text.txt"));
-        
+
         listDir(sb, dirList);
         listFile(sb, fileList);
         Writter(sb.toString());
@@ -62,7 +62,6 @@ public class Main {
                 sb.append('\n');
             }
         }
-//        return sb;
     }
 
     public static void listFile(StringBuilder sb, List<File> fileList) {
