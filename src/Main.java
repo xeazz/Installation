@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
         List<File> dirList = Arrays.asList(new File("/home/dmitry/Games/src"),
                 new File("/home/dmitry/Games/src/main"),
                 new File("/home/dmitry/Games/src/test"),
@@ -18,28 +19,15 @@ public class Main {
         List<File> fileList = Arrays.asList(new File("/home/dmitry/Games/src/main/Main.java"),
                 new File("/home/dmitry/Games/src/main/Utils.java"),
                 new File("/home/dmitry/Games/temp/text.txt"));
-
-
-        StringBuilder sb = new StringBuilder();
-        for (File x : dirList) {
-            sb.append(createDir(x));
-            sb.append('\n');
-        }
-        for (File y : fileList) {
-            sb.append(createFile(y));
-            sb.append('\n');
-        }
-        String text = sb.toString();
-        Writter(text);
+        
+        listDir(sb, dirList);
+        listFile(sb, fileList);
+        Writter(sb.toString());
 
     }
 
     public static boolean createDir(File file) {
-        if (file.mkdir()) {
-            return true;
-        } else {
-            return false;
-        }
+        return file.mkdir();
     }
 
     public static boolean createFile(File file) {
@@ -58,6 +46,37 @@ public class Main {
             writer.flush();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
+        }
+    }
+
+    public static void listDir(StringBuilder sb, List<File> dirList) {
+        for (File x : dirList) {
+            if (createDir(x)) {
+                sb.append("Каталог ");
+                sb.append(x.getName());
+                sb.append(" успешно создан");
+                sb.append('\n');
+            } else {
+                sb.append("Ошибка создания каталога c именем ");
+                sb.append(x.getName());
+                sb.append('\n');
+            }
+        }
+//        return sb;
+    }
+
+    public static void listFile(StringBuilder sb, List<File> fileList) {
+        for (File y : fileList) {
+            if (createFile(y)) {
+                sb.append("Файл ");
+                sb.append(y.getName());
+                sb.append(" успешно создан");
+                sb.append('\n');
+            } else {
+                sb.append("Ошибка создания файла c именем ");
+                sb.append(y.getName());
+                sb.append('\n');
+            }
         }
     }
 }
